@@ -15,10 +15,21 @@ public class Application {
     @NotBlank
     private String resumeURL;
 
+    @NotBlank
+    private String status;
 
-    public Application(Long id, int studentId, int companyId, String position, String resumeURL){
+
+    public Application(Long id, int studentId, int companyId, String position, String resumeURL, String status){
         this.id = id; this.studentId = studentId; this.companyId = companyId;
-        this.position = position; this.resumeURL = resumeURL;
+        this.position = position; this.resumeURL = resumeURL; this.status = status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     public void setId(Long id) {
