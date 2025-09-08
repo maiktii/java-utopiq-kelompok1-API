@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class StudentController {
 
-    @Autowired
     private final StudentService studentService;
+
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
+    }
 
     @PostMapping("/students")
     public ResponseEntity<Student> CreateStudent(@Valid @RequestBody StudentRequest studentRequest){
