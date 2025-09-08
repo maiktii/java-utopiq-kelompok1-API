@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ApplicationService {
 
@@ -24,5 +26,16 @@ public class ApplicationService {
                         applicationRequest.getPosition(), applicationRequest.getResumeURL())
         );
         return ResponseEntity.status(HttpStatus.CREATED).body(dataApplication);
+    }
+
+    public ResponseEntity<List<Application>> getAllApplications() {
+        List<Application> list = applicationRepository.findAllApplication();
+        return ResponseEntity.ok(list);
+    }
+
+    public ResponseEntity<Application> getApplicationById(Long id) {
+        return applicationRepository.findByApplicationId(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 }
