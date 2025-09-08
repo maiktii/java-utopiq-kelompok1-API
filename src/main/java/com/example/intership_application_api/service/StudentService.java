@@ -1,7 +1,9 @@
 package com.example.intership_application_api.service;
 
 import com.example.intership_application_api.dto.student.StudentRequest;
+import com.example.intership_application_api.entity.Application;
 import com.example.intership_application_api.entity.Student;
+import com.example.intership_application_api.repository.ApplicationRepository;
 import com.example.intership_application_api.repository.StudentRepository;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +15,29 @@ import java.util.List;
 @Service
 public class StudentService {
     private final StudentRepository studentRepository;
+    private final ApplicationRepository applicationRepository;
 
-    public StudentService(StudentRepository studentRepository) {
+    public StudentService(StudentRepository studentRepository, ApplicationRepository applicationRepository) {
         this.studentRepository = studentRepository;
+        this.applicationRepository = applicationRepository;
     }
 
     public ResponseEntity<Student> CreateStudent(StudentRequest studentRequest){
         Student savedStudent = studentRepository.save(new Student(null, studentRequest.getStudentName(), studentRequest.getStudentEmail(),
                 studentRequest.getMajor(), studentRequest.getYear()));
         return ResponseEntity.status(HttpStatus.CREATED).body(savedStudent);
+    }
+
+    public ResponseEntity<Application> CheckStudentApplication(Long id){
+        Application applicationDataByStudentId = null;
+        List<Application> applicationData = applicationRepository.findAllApplication();
+
+        for (Application application : applicationData){
+            if (id == application.getStudentId()){
+                applicationDataByStudentId = applicationRepository.findByApplicationId((long)id).orElse(null);
+            }
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(applicationDataByStudentId);
     }
 }
