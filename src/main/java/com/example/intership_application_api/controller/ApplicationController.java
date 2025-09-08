@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -26,5 +30,15 @@ public class ApplicationController {
     @PostMapping("/applications")
     public ResponseEntity<Application> CreateApplication(@Valid @RequestBody ApplicationRequest applicationRequest){
         return applicationService.CreateApplication(applicationRequest);
+    }
+
+    @GetMapping("/applications")
+    public ResponseEntity<List<Application>> getApplications() {
+        return applicationService.getAllApplications();
+    }
+
+    @GetMapping("/applications/{id}")
+    public ResponseEntity<Application> getApplicationById(@PathVariable Long id) {
+        return applicationService.getApplicationById(id);
     }
 }

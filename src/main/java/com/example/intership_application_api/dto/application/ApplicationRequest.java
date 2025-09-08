@@ -14,6 +14,7 @@ public class ApplicationRequest {
     @NotBlank
     private String resumeURL;
 
+    public ApplicationRequest() {}
 
     public ApplicationRequest(int studentId, int companyId, String position, String resumeURL){
         this.studentId = studentId; this.companyId = companyId; this.position = position; this.resumeURL = resumeURL;
