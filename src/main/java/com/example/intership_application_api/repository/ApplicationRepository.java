@@ -17,8 +17,8 @@ public class ApplicationRepository {
     private final AtomicLong seq = new AtomicLong(0);
 
     public ApplicationRepository(){
-        saveApplication(new Application(null, 1, 1, "back-end", "www.test.com"));
-        saveApplication(new Application(null, 2, 2, "front-end", "www.test1.com"));
+        saveApplication(new Application(null, 1, 1, "back-end", "www.test.com", "PENDING"));
+        saveApplication(new Application(null, 2, 2, "front-end", "www.test1.com", "PENDING"));
     }
 
     public Application saveApplication(Application ev) {

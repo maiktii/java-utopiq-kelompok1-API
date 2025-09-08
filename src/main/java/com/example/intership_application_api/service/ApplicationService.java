@@ -23,7 +23,7 @@ public class ApplicationService {
     public ResponseEntity<Application> CreateApplication(ApplicationRequest applicationRequest){
         Application dataApplication = applicationRepository.saveApplication(
                 new Application(null, applicationRequest.getStudentId(), applicationRequest.getCompanyId(),
-                        applicationRequest.getPosition(), applicationRequest.getResumeURL())
+                        applicationRequest.getPosition(), applicationRequest.getResumeURL(), applicationRequest.getStatus())
         );
         return ResponseEntity.status(HttpStatus.CREATED).body(dataApplication);
     }
@@ -37,5 +37,30 @@ public class ApplicationService {
         return applicationRepository.findByApplicationId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
+    public ResponseEntity<HttpStatus> deleteApplicationById(Long id){
+        if (!applicationRepository.applicationExists(id)){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        applicationRepository.deleteApplication(id);
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
+
+    public ResponseEntity<Application> updateApplicationById(Long id, ApplicationRequest applicationRequest){
+        if (!applicationRepository.applicationExists(id)){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        if (!applicationRequest.getStatus().equals("PENDING") && !applicationRequest.getStatus().equals("ACCEPTED")
+        && !applicationRequest.getStatus().equals("REJECTED")){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        applicationRequest.setStatus(applicationRequest.getStatus());
+        return ResponseEntity.ok(applicationRepository.saveApplication(new Application(null,
+                        applicationRequest.getStudentId(),
+                        applicationRequest.getCompanyId(),
+                        applicationRequest.getStatus(),
+                        applicationRequest.getPosition(),
+                        applicationRequest.getResumeURL())));
     }
 }

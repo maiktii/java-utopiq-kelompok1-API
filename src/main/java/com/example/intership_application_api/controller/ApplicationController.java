@@ -6,13 +6,9 @@ import com.example.intership_application_api.repository.ApplicationRepository;
 import com.example.intership_application_api.service.ApplicationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,7 +21,6 @@ public class ApplicationController {
     public ApplicationController(ApplicationService applicationService) {
         this.applicationService = applicationService;
     }
-
 
     @PostMapping("/applications")
     public ResponseEntity<Application> CreateApplication(@Valid @RequestBody ApplicationRequest applicationRequest){
@@ -40,5 +35,16 @@ public class ApplicationController {
     @GetMapping("/applications/{id}")
     public ResponseEntity<Application> getApplicationById(@PathVariable Long id) {
         return applicationService.getApplicationById(id);
+    }
+
+    @DeleteMapping("/applications/{id}")
+    public ResponseEntity<HttpStatus> deleteApplicationById(@PathVariable("id") Long id){
+        return applicationService.deleteApplicationById(id);
+    }
+
+    @PutMapping("/applications/{id}")
+    public ResponseEntity<Application> updateApplicationStatus(
+            @PathVariable("id") Long id, @Valid @RequestBody ApplicationRequest applicationRequest){
+        return applicationService.updateApplicationById(id, applicationRequest);
     }
 }
