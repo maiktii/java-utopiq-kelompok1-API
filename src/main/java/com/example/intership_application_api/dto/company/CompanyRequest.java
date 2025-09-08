@@ -20,6 +20,7 @@ public class CompanyRequest {
     @NotBlank
     private String companyPhone;
 
+    public CompanyRequest() {}
     public CompanyRequest(String companyName, String companyAddress, String companyIndustry, String companyEmail,
                           String companyPhone){
         this.companyName = companyName; this.companyAddress = companyAddress; this.companyIndustry = companyIndustry;

@@ -11,6 +11,8 @@ public class Company {
     private String companyEmail;
     private String companyPhone;
 
+    public Company() {}
+
     public Company(Long id, String companyName, String companyAddress, String companyIndustry, String companyEmail,
                           String companyPhone){
         this.id = id;this.companyName = companyName; this.companyAddress = companyAddress;
