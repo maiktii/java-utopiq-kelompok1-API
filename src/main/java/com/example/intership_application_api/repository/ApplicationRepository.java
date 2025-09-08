@@ -2,6 +2,7 @@ package com.example.intership_application_api.repository;
 
 import com.example.intership_application_api.entity.Application;
 import com.example.intership_application_api.entity.Student;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
+@Repository
 public class ApplicationRepository {
     private final Map<Long, Application> data = new ConcurrentHashMap<>();
     private final AtomicLong seq = new AtomicLong(0);

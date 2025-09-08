@@ -7,12 +7,16 @@ import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class StudentService {
-    @Autowired
     private final StudentRepository studentRepository;
+
+    public StudentService(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
 
     public ResponseEntity<Student> CreateStudent(StudentRequest studentRequest){
         Student savedStudent = studentRepository.save(new Student(null, studentRequest.getStudentName(), studentRequest.getStudentEmail(),

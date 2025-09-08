@@ -7,10 +7,16 @@ import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ApplicationService {
-    @Autowired
+
     private final ApplicationRepository applicationRepository;
+
+    public ApplicationService(ApplicationRepository applicationRepository) {
+        this.applicationRepository = applicationRepository;
+    }
 
     public ResponseEntity<Application> CreateApplication(ApplicationRequest applicationRequest){
         Application dataApplication = applicationRepository.saveApplication(
