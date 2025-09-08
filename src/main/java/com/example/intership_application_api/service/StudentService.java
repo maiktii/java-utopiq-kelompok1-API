@@ -14,8 +14,9 @@ public class StudentService {
     @Autowired
     private final StudentRepository studentRepository;
 
-    public ResponseEntity<List<Student>> CreateStudent(StudentRequest studentRequest){
-        List<Student> dataStudent = studentRepository.findAllStudent();
-        return ResponseEntity.status(HttpStatus.CREATED).body(dataStudent);
+    public ResponseEntity<Student> CreateStudent(StudentRequest studentRequest){
+        Student savedStudent = studentRepository.save(new Student(null, studentRequest.getStudentName(), studentRequest.getStudentEmail(),
+                studentRequest.getMajor(), studentRequest.getYear()));
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedStudent);
     }
 }
