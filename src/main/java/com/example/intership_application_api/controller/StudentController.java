@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api")
 public class StudentController {
@@ -21,12 +23,22 @@ public class StudentController {
     }
 
     @PostMapping("/students")
-    public ResponseEntity<Student> CreateStudent(@Valid @RequestBody StudentRequest studentRequest){
-        return studentService.CreateStudent(studentRequest);
+    public Student createStudent(@RequestBody StudentRequest studentRequest){
+        return studentService.createStudent(studentRequest);
     }
 
     @GetMapping("/students/{id}/applications")
-    public ResponseEntity<Application> CheckApplicationByStudentId(@PathVariable("id") Long id){
-        return studentService.CheckStudentApplication(id);
+    public Optional<Student> getAllStudentById(@PathVariable Long id){
+        return studentService.getAllStudentById(id);
     }
+
+//    @PostMapping("/students")
+//    public ResponseEntity<Student> CreateStudent(@Valid @RequestBody StudentRequest studentRequest){
+//        return studentService.CreateStudent(studentRequest);
+//    }
+//
+//    @GetMapping("/students/{id}/applications")
+//    public ResponseEntity<Application> CheckApplicationByStudentId(@PathVariable("id") Long id){
+//        return studentService.CheckStudentApplication(id);
+//    }
 }

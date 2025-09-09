@@ -1,12 +1,28 @@
 package com.example.intership_application_api.entity;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Application {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int studentId;
+
+//    private int studentId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "student_id")
+    private Student student;
+
+
     private int companyId;
 
     @NotBlank
@@ -17,58 +33,4 @@ public class Application {
 
     @NotBlank
     private String status;
-
-
-    public Application(Long id, int studentId, int companyId, String position, String resumeURL, String status){
-        this.id = id; this.studentId = studentId; this.companyId = companyId;
-        this.position = position; this.resumeURL = resumeURL; this.status = status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
-    }
-
-    public void setCompanyId(int companyId) {
-        this.companyId = companyId;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
-    public void setResumeURL(String resumeURL) {
-        this.resumeURL = resumeURL;
-    }
-
-    public int getStudentId() {
-        return studentId;
-    }
-
-    public int getCompanyId() {
-        return companyId;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public String getResumeURL() {
-        return resumeURL;
-    }
 }
