@@ -1,10 +1,12 @@
 package com.example.intership_application_api.controller;
 
 import com.example.intership_application_api.dto.application.ApplicationRequest;
+import com.example.intership_application_api.dto.application.ApplicationResponse;
 import com.example.intership_application_api.entity.Application;
 import com.example.intership_application_api.repository.ApplicationRepository;
 import com.example.intership_application_api.service.ApplicationService;
 import jakarta.validation.Valid;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,5 +48,10 @@ public class ApplicationController {
     public ResponseEntity<Application> updateApplicationStatus(
             @PathVariable("id") Long id, @Valid @RequestBody ApplicationRequest applicationRequest){
         return applicationService.updateApplicationById(id, applicationRequest);
+    }
+
+    @GetMapping("/applications/all")
+    public ResponseEntity<ApplicationResponse<List<Application>>> getAllApplicationWithJSON(){
+        return applicationService.getAllApplicationWithStructure();
     }
 }

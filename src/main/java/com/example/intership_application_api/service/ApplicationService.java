@@ -1,6 +1,7 @@
 package com.example.intership_application_api.service;
 
 import com.example.intership_application_api.dto.application.ApplicationRequest;
+import com.example.intership_application_api.dto.application.ApplicationResponse;
 import com.example.intership_application_api.entity.Application;
 import com.example.intership_application_api.repository.ApplicationRepository;
 import org.apache.coyote.Response;
@@ -31,6 +32,19 @@ public class ApplicationService {
     public ResponseEntity<List<Application>> getAllApplications() {
         List<Application> list = applicationRepository.findAllApplication();
         return ResponseEntity.ok(list);
+    }
+
+    public ResponseEntity<ApplicationResponse<List<Application>>> getAllApplicationWithStructure(){
+        List<Application> list = applicationRepository.findAllApplication();
+
+        ApplicationResponse<List<Application>> response = new ApplicationResponse<>(
+                HttpStatus.OK.value(),
+                "Success List All Data Application",
+                null,
+                list
+        );
+
+        return ResponseEntity.ok(response);
     }
 
     public ResponseEntity<Application> getApplicationById(Long id) {
