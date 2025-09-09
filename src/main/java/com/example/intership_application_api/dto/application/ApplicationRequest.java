@@ -2,7 +2,13 @@ package com.example.intership_application_api.dto.application;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ApplicationRequest {
 
     private int studentId;
@@ -16,52 +22,5 @@ public class ApplicationRequest {
 
     @NotBlank
     private String status;
-
-    public ApplicationRequest() {}
-
-    public ApplicationRequest(int studentId, int companyId, String position, String resumeURL, String status){
-        this.studentId = studentId; this.companyId = companyId; this.position = position; this.resumeURL = resumeURL;
-        this.status = status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
-    }
-
-    public void setCompanyId(int companyId) {
-        this.companyId = companyId;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
-    public void setResumeURL(String resumeURL) {
-        this.resumeURL = resumeURL;
-    }
-
-    public int getStudentId() {
-        return studentId;
-    }
-
-    public int getCompanyId() {
-        return companyId;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public String getResumeURL() {
-        return resumeURL;
-    }
 }
 
